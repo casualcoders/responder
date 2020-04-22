@@ -56,5 +56,12 @@ describe('Responder', () => {
     const pageResponder = new Responder(['tablet'], CONF, testTabletEnterFunction, testTabletExitFunction, macthMD);
     should(pageResponder.defineFunctionToRun()).be.equal('tabletExitFunctionReturn');
   })
+
+  it('The intialised responder should contain properties of a maximum and minimum dom width, which correspond to the minimum and maximum matching config breakpoint enter and exit values', () => {
+    let conf = [{name: 'tablet', min: 1000, max: 2000}]
+    const pageResponder = new Responder(['tablet'], conf, null, null, true);
+    should(pageResponder.minimumDomWidth).be.equal(conf[0].min);
+    should(pageResponder.maximumDomWidth).be.equal(conf[0].max);
+  })
   
 });

@@ -1,4 +1,7 @@
-
+Breakpoints:
+[{
+name: 'mobile', enter: 0, exit: 900
+}, {name: 'tablet', enter: 901, exit: 1500}]
 class Responder {
   config: Array<String>;
   viewports: Array<String>;
@@ -6,7 +9,7 @@ class Responder {
   exit: function;
   macthMD: Boolean;
   
-  constructor(viewports: Array<String>, config: Array<String>, enterFunction: function, exitFunction: function , macthMD: Boolean) {
+  constructor(viewports: Array<String>, config: Array<Breakpoints>, enterFunction: function, exitFunction: function , macthMD: Boolean) {
     this.config = config;
     this.viewports = viewports;
     this.enter = enterFunction;
