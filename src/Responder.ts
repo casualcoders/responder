@@ -1,7 +1,3 @@
-Breakpoints:
-[{
-name: 'mobile', enter: 0, exit: 900
-}, {name: 'tablet', enter: 901, exit: 1500}]
 class Responder {
   config: Array<String>;
   viewports: Array<String>;
