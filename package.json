@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx ts-mocha tests/*/*"
+    "test": "npx ts-mocha tests/*/* --watch"
   },
   "author": "",
   "license": "ISC",

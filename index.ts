@@ -1,7 +1,7 @@
-import CalculatorExample from './src/CalculatorExample';
+import Responder from './src/Responder';
 
 function run () {
-  const calculator = new CalculatorExample();
+  const calculator = new Responder();
   const a = 1;
   const b = 2;
   const additionResult = calculator.add(1, 2);
