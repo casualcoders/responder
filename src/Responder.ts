@@ -1,11 +1,11 @@
 class Responder {
   config: Array<String>;
   viewports: Array<String>;
-  enter: function;
-  exit: function;
+  enter: any;
+  exit: any;
   macthMD: Boolean;
   
-  constructor(viewports: Array<String>, config: Array<Breakpoints>, enterFunction: function, exitFunction: function , macthMD: Boolean) {
+  constructor(viewports: Array<String>, config: Array<any>, enterFunction: any, exitFunction: any , macthMD: Boolean) {
     this.config = config;
     this.viewports = viewports;
     this.enter = enterFunction;
