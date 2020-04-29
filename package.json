@@ -4,15 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx ts-mocha tests/*/* --watch"
+    "test": "jest",
+    "build": "babel ./src --out-dir lib --ignore \"src/**/*.spec.ts\" --extensions \".ts\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/mocha": "^5.2.7",
-    "mocha": "^6.2.0",
-    "should": "^13.2.3",
-    "ts-mocha": "^6.0.0",
     "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/mocha": "^7.0.2",
+    "jest": "^25.4.0",
+    "should": "^13.2.3"
   }
 }
