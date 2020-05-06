@@ -3,16 +3,6 @@ import Responder from './Responder';
 import CONF from './config'
 
 describe('Responder', () => {
-  it('Should be initialized', () => {
-    const pageResponder = new Responder();
-    should(pageResponder).not.be.undefined();
-    pageResponder.should.be.an.instanceOf(Responder);
-  })
-
-  it('Should have an array as an input', () => {
-    const pageResponder = new Responder([]);    
-  })
-  
   it('Should contain the config passed to it as a property', () => {
     const pageResponder = new Responder([], CONF);
     should(pageResponder.config).not.be.undefined();
@@ -27,13 +17,13 @@ describe('Responder', () => {
   it('Should store a function passed as a parameter as the enter function', () => {
     const testFunction= () => {}
     const pageResponder = new Responder(['notBreakpoint'], CONF, testFunction);
-    should(pageResponder.enter).be.equal(testFunction);
+    should(pageResponder.enterFunction).be.equal(testFunction);
   })
 
   it('Should store a function passed as a parameter as the exit function', () => {
     const testFunction= () => {}
     const pageResponder = new Responder(['notBreakpoint'], CONF, ()=> {}, testFunction);
-    should(pageResponder.exit).be.equal(testFunction);
+    should(pageResponder.exitFunction).be.equal(testFunction);
   })
 
   it('Should fire the enter function if the current breakpoint is in the array passed', () => {
@@ -51,14 +41,51 @@ describe('Responder', () => {
     const pageResponder = new Responder(['tablet'], CONF, testTabletEnterFunction, testTabletExitFunction, macthMD);
     should(pageResponder.defineFunctionToRun()).be.equal('tabletExitFunctionReturn');
   })
+});
 
-  it('Should contain properties of a maximum and minimum dom width, which correspond to the minimum and maximum matching config breakpoint enter and exit values', () => {
+describe('PageResponder Setup', () => {
+  
+  it('Should result in the maximum and minimumdomwidth properties, which correspond to the minimum and maximum matching config breakpoint enter and exit values, being populated', () => {
     let conf = [{name: 'tablet', min: 1000, max: 2000}]
     const pageResponder = new Responder(['tablet'], conf, null, null, true);
+    pageResponder.setup()
     should(pageResponder.minimumDomWidth).be.equal(conf[0].min);
     should(pageResponder.maximumDomWidth).be.equal(conf[0].max);
   })
-});
+
+  it('Should result in the maximum and minimumdomwidth properties, which correspond to the minimum matching config breakpoint enter value and the maximum matching config breakpoint exit value, being populated', () => {
+    const conf = [{name: 'tablet', min: 1000, max: 2000}, {name: 'desktop', min: 2001, max: 3000}]
+    const pageResponder = new Responder(['tablet', 'desktop'], conf, null, null, true);
+    pageResponder.setup()
+    should(pageResponder.minimumDomWidth).be.equal(conf[0].min);
+    should(pageResponder.maximumDomWidth).be.equal(conf[1].max);
+  })
+
+  it('Should result in the maximum and minimumdomwidth properties, which correspond to the minimum matching config breakpoint enter value and the maximum matching config breakpoint exit value, being populated', () => {
+    const conf = [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}]
+    const pageResponder = new Responder(['mobile', 'tablet', 'desktop'], conf, null, null, true);
+    pageResponder.setup()
+    should(pageResponder.minimumDomWidth).be.equal(conf[1].min);
+    should(pageResponder.maximumDomWidth).be.equal(conf[1].max);
+  })
+
+  it('Should result in the maximum and minimumdomwidth properties, which correspond to the minimum matching config breakpoint enter value and the maximum matching config breakpoint exit value, being populated', () => {
+    const conf = [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}]
+    const pageResponder = new Responder(['mobile', 'desktop'], conf, null, null, true);
+    pageResponder.setup()
+    should(pageResponder.minimumDomWidth).be.equal(conf[0].min);
+    should(pageResponder.maximumDomWidth).be.equal(conf[2].max);
+  })
+  
+  it('should run the enter function if the current viewport is between the minimum and maximum view widths', () => {
+    document.body.clientWidth = 500
+    const conf = [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}]
+    const enterFn = jest.fn()
+    const pageResponder = new Responder(['mobile', 'tablet', 'desktop'], conf, enterFn, null, true);
+    pageResponder.setup()
+    expect(enterFn.mock.calls.length).toBe(1);
+  })
+})
 
 describe('Responder validate method', () => {
   it('Should return false if the array passed does not match any of the provided breakpoints in the config', () => {
