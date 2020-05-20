@@ -5,22 +5,20 @@ class Responder {
     viewports: Array < String > ;
     enterFunction: any;
     exitFunction: any;
-    macthMD ? : Boolean;
+    matchObject: any;
 
-    constructor(viewports: Array < String > , config: Array < any > , enterFunction: any, exitFunction: any, macthMD ? : Boolean) {
+    constructor(viewports: Array < String > , config: Array < any > , enterFunction: any, exitFunction: any) {
         this.config = config;
         this.viewports = viewports;
-        this.enterFunction = enterFunction;
-        this.exitFunction = exitFunction;
-        this.macthMD = macthMD;
+        this.enterFunction = enterFunction ?? function() {};
+        this.exitFunction = exitFunction ?? function() {};
     }
 
     setup(): void {
+        this.matchObject = this.createMatchMediaObject();
+        this.defineFunctionToRun()
         this.setMaximumDomWidth()
         this.setMinimumDomWidth()
-        if (document.body.clientWidth > this.minimumDomWidth && document.body.clientWidth < this.maximumDomWidth) {
-          this.enterFunction()
-        }
     }
 
     setMaximumDomWidth(): void {
@@ -63,14 +61,17 @@ class Responder {
         return output;
     }
 
-    defineFunctionToRun(): string {
-        let output = ''
-        if (this.macthMD) {
-            output = this.enterFunction()
+    defineFunctionToRun(): void {
+        if (this.matchObject.matches) {
+            this.enterFunction()
         } else {
-            output = this.exitFunction()
+            this.exitFunction()
         }
-        return output
+    }
+
+    createMatchMediaObject(): any {
+        return window.matchMedia(`(min-width: ${this.minimumDomWidth}px) and (max-width: ${this.maximumDomWidth}px)`)
+        //TODO test this!
     }
 }
 
