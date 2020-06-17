@@ -1,16 +1,14 @@
 {
-  "name": "coderetreat-ts-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "build": "babel ./src --out-dir lib --ignore \"src/**/*.spec.ts\" --extensions \".ts\""
+  "private": false,
+  "name": "@casualcoders/responder",
+  "version": "0.0.1",
+  "description": "A modern page responsiveness package in ES6 js with typescript 🚀",
+  "main": "./src/ResponderFactory.ts",
+  "directories": {
+    "lib": "lib"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "typescript": "^3.6.3"
+      "typescript": "^3.6.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -21,5 +19,28 @@
     "@types/mocha": "^7.0.2",
     "jest": "^25.4.0",
     "should": "^13.2.3"
-  }
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "babel ./src --out-dir lib --ignore \"src/**/*.spec.ts\" --extensions \".ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Camiloruiiz/responder.git"
+  },
+  "keywords": [
+      "Responsive",
+      "Responsiveness",
+      "JS",
+      "typescript",
+      "opensource",
+      "matchmedia"
+  ],
+  "author": "Benjamin Watson, Camilo Ruiz",
+  "license": "SEE LICENCE IN license.txt",
+  "bugs": {
+    "url": "https://github.com/Camiloruiiz/responder/issues"
+  },
+  "homepage": "https://github.com/Camiloruiiz/responder#readme"
+
 }
