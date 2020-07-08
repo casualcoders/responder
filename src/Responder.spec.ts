@@ -44,19 +44,12 @@ describe('Responder', () => {
   })
 });
 
-const breakpoints = {
-    sm: { label: 'small', enter: 0, exit: 575 },
-    mobile: { label: 'mobile', enter: 576, exit: 767 },
-    tablet: { label: 'tablet', enter: 768, exit: 991 },
-    desktop: { label: 'desktop', enter: 992, exit: 1199 },
-    xl: { label: 'big', enter: 1200, exit: 9999 }
-}
 describe('PageResponder Setup', () => {
   const testData = {
-    1: {viewports: ['tablet'], conf: [{name: 'tablet', min: 1000, max: 2000}], expectedMinWidth: 1000, expectedMaxWidth: 2000},
-    2: {viewports: ['tablet', 'desktop'], conf: [{name: 'tablet', min: 1000, max: 2000}, {name: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 1000, expectedMaxWidth: 3000},
-    3: {viewports: ['mobile', 'tablet', 'desktop'], conf: [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 100, expectedMaxWidth: 5000},
-    4: {viewports: ['mobile', 'desktop'], conf: [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 1000, expectedMaxWidth: 3000}
+    1: {viewports: ['tablet'], conf: [{label: 'tablet', min: 1000, max: 2000}], expectedMinWidth: 1000, expectedMaxWidth: 2000},
+    2: {viewports: ['tablet', 'desktop'], conf: [{label: 'tablet', min: 1000, max: 2000}, {label: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 1000, expectedMaxWidth: 3000},
+    3: {viewports: ['mobile', 'tablet', 'desktop'], conf: [{label: 'mobile', min: 1000, max: 2000}, {label: 'tablet', min: 100, max: 5000}, {label: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 100, expectedMaxWidth: 5000},
+    4: {viewports: ['mobile', 'desktop'], conf: [{label: 'mobile', min: 1000, max: 2000}, {label: 'tablet', min: 100, max: 5000}, {label: 'desktop', min: 2001, max: 3000}], expectedMinWidth: 1000, expectedMaxWidth: 3000}
   };
   
   Object.values(testData).forEach(data => {
@@ -70,7 +63,7 @@ describe('PageResponder Setup', () => {
   
   it('should run the enter function if match media returns matches as true', () => {
     matchMediaFactory(true);
-    const conf = [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}]
+    const conf = [{label: 'mobile', min: 1000, max: 2000}, {label: 'tablet', min: 100, max: 5000}, {label: 'desktop', min: 2001, max: 3000}]
     const exitFn = jest.fn()
     const enterFn = jest.fn()
     const pageResponder = new Responder(['mobile', 'tablet', 'desktop'], conf, enterFn, exitFn);
@@ -81,7 +74,7 @@ describe('PageResponder Setup', () => {
 
   it('should run the exit function if match media returns matches as false', () => {
     matchMediaFactory(false);
-    const conf = [{name: 'mobile', min: 1000, max: 2000}, {name: 'tablet', min: 100, max: 5000}, {name: 'desktop', min: 2001, max: 3000}]
+    const conf = [{label: 'mobile', min: 1000, max: 2000}, {label: 'tablet', min: 100, max: 5000}, {label: 'desktop', min: 2001, max: 3000}]
     const exitFn = jest.fn()
     const enterFn = jest.fn()
     const pageResponder = new Responder(['mobile', 'tablet', 'desktop'], conf, enterFn, exitFn);

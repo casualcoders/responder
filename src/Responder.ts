@@ -1,13 +1,13 @@
 class Responder {
     minimumDomWidth: Number;
     maximumDomWidth: Number;
-    config: Array < any >
+    config: Array < breakpoint >
     viewports: Array < String > ;
     enterFunction: any;
     exitFunction: any;
     matchObject: any;
 
-    constructor(viewports: Array < String > , config: Array < any > , enterFunction: any, exitFunction: any) {
+    constructor(viewports: Array < String > , config: Array < breakpoint > , enterFunction: any, exitFunction: any) {
         this.config = config;
         this.viewports = viewports;
         this.enterFunction = enterFunction ?? function() {};
@@ -25,7 +25,7 @@ class Responder {
         let max: Number = 0
 
         this.config.forEach(breakpoint => {
-          const isBreakpointInViewports = this.viewports.indexOf(breakpoint.name) !== -1
+          const isBreakpointInViewports = this.viewports.indexOf(breakpoint.label) !== -1
             if (isBreakpointInViewports) {
                 max = breakpoint.max > max ? breakpoint.max : max
             }
@@ -35,12 +35,12 @@ class Responder {
     }
 
     setMinimumDomWidth(): void {
-        let min: Number
+        let min: Number = 0
 
         this.config.forEach(breakpoint => {
-          const isBreakpointInViewports = this.viewports.indexOf(breakpoint.name) !== -1
+          const isBreakpointInViewports = this.viewports.indexOf(breakpoint.label) !== -1
             if (isBreakpointInViewports) {
-                if (min === undefined) {
+                if (min === 0) {
                     min = breakpoint.min
                 }
                 
