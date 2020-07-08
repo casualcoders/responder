@@ -8,7 +8,7 @@
     "lib": "lib"
   },
   "dependencies": {
-      "typescript": "^3.6.3"
+    "typescript": "^3.6.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -21,7 +21,7 @@
     "should": "^13.2.3"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "build": "babel ./src --out-dir lib --ignore \"src/**/*.spec.ts\" --extensions \".ts\""
   },
   "repository": {
@@ -29,12 +29,12 @@
     "url": "git+https://github.com/Camiloruiiz/responder.git"
   },
   "keywords": [
-      "Responsive",
-      "Responsiveness",
-      "JS",
-      "typescript",
-      "opensource",
-      "matchmedia"
+    "Responsive",
+    "Responsiveness",
+    "JS",
+    "typescript",
+    "opensource",
+    "matchmedia"
   ],
   "author": "Benjamin Watson, Camilo Ruiz",
   "license": "SEE LICENCE IN license.txt",
@@ -42,5 +42,4 @@
     "url": "https://github.com/Camiloruiiz/responder/issues"
   },
   "homepage": "https://github.com/Camiloruiiz/responder#readme"
-
 }
