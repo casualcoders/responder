@@ -52,10 +52,13 @@ class Responder {
     }
 
     validate(): boolean {
-        let output = true;
+        let output = false;
         this.viewports.forEach(viewport => {
-            const isViewpointNotInConfig = this.config.indexOf(viewport) === -1
-            if (isViewpointNotInConfig) { output = false }
+            this.config.forEach(breakpoint => {
+                if (breakpoint.label === viewport) {
+                    output = true
+                }
+            });
         })
 
         return output;
