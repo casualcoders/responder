@@ -2,7 +2,7 @@ class Responder {
     minimumDomWidth: Number;
     maximumDomWidth: Number;
     config: Array < breakpoint >
-    viewports: Array < String > ;
+    viewports: Array < String >;
     enterFunction: any;
     exitFunction: any;
     matchObject: any;
@@ -12,13 +12,15 @@ class Responder {
         this.viewports = viewports;
         this.enterFunction = enterFunction ?? function() {};
         this.exitFunction = exitFunction ?? function() {};
+        this.minimumDomWidth = 0;
+        this.maximumDomWidth = Number.MAX_SAFE_INTEGER;
     }
 
     setup(): void {
-        this.matchObject = this.createMatchMediaObject();
-        this.defineFunctionToRun()
         this.setMaximumDomWidth()
         this.setMinimumDomWidth()
+        this.matchObject = this.createMatchMediaObject();
+        this.defineFunctionToRun()
     }
 
     setMaximumDomWidth(): void {
@@ -52,10 +54,13 @@ class Responder {
     }
 
     validate(): boolean {
-        let output = true;
+        let output = false;
         this.viewports.forEach(viewport => {
-            const isViewpointNotInConfig = this.config.indexOf(viewport) === -1
-            if (isViewpointNotInConfig) { output = false }
+            this.config.forEach(breakpoint => {
+                if (breakpoint.label === viewport) {
+                    output = true
+                }
+            });
         })
 
         return output;
