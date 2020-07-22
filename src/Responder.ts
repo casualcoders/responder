@@ -17,10 +17,10 @@ class Responder {
     }
 
     setup(): void {
-        this.matchObject = this.createMatchMediaObject();
-        this.defineFunctionToRun()
         this.setMaximumDomWidth()
         this.setMinimumDomWidth()
+        this.matchObject = this.createMatchMediaObject();
+        this.defineFunctionToRun()
     }
 
     setMaximumDomWidth(): void {
