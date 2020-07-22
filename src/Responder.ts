@@ -2,7 +2,7 @@ class Responder {
     minimumDomWidth: Number;
     maximumDomWidth: Number;
     config: Array < breakpoint >
-    viewports: Array < String > ;
+    viewports: Array < String >;
     enterFunction: any;
     exitFunction: any;
     matchObject: any;
@@ -12,6 +12,8 @@ class Responder {
         this.viewports = viewports;
         this.enterFunction = enterFunction ?? function() {};
         this.exitFunction = exitFunction ?? function() {};
+        this.minimumDomWidth = 0;
+        this.maximumDomWidth = Number.MAX_SAFE_INTEGER;
     }
 
     setup(): void {
