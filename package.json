@@ -8,6 +8,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "@types/jest": "^26.0.5",
     "typescript": "^3.6.3"
   },
   "devDependencies": {

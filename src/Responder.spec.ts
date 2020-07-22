@@ -9,10 +9,10 @@ const CONF = [
   { label: 'big', min: 1200, max: 9999 }
 ]
 
-function matchMediaFactory(matches) {
+function matchMediaFactory(matches: Boolean) {
     Object.defineProperty(window, "matchMedia", {
         writable: true,
-        value: jest.fn().mockImplementation((query) => ({
+        value: jest.fn().mockImplementation((query: String) => ({
             matches: matches,
             media: query,
             onchange: null,
