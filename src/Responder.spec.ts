@@ -65,45 +65,44 @@ describe("Responder", () => {
         should(pageResponder.exitFunction).be.equal(testFunction);
     });
 
+    const testData = {
+        1: {
+            viewports: ["tablet"],
+            conf: [{ label: "tablet", min: 1000, max: 2000 }],
+            expectedMinWidth: 1000,
+            expectedMaxWidth: 2000,
+        },
+        2: {
+            viewports: ["tablet", "desktop"],
+            conf: [
+                { label: "tablet", min: 1000, max: 2000 },
+                { label: "desktop", min: 2001, max: 3000 },
+            ],
+            expectedMinWidth: 1000,
+            expectedMaxWidth: 3000,
+        },
+        3: {
+            viewports: ["mobile", "tablet", "desktop"],
+            conf: [
+                { label: "mobile", min: 1000, max: 2000 },
+                { label: "tablet", min: 100, max: 5000 },
+                { label: "desktop", min: 2001, max: 3000 },
+            ],
+            expectedMinWidth: 100,
+            expectedMaxWidth: 5000,
+        },
+        4: {
+            viewports: ["mobile", "desktop"],
+            conf: [
+                { label: "mobile", min: 1000, max: 2000 },
+                { label: "tablet", min: 100, max: 5000 },
+                { label: "desktop", min: 2001, max: 3000 },
+            ],
+            expectedMinWidth: 1000,
+            expectedMaxWidth: 3000,
+        },
+    };
     describe("Setup", () => {
-        const testData = {
-            1: {
-                viewports: ["tablet"],
-                conf: [{ label: "tablet", min: 1000, max: 2000 }],
-                expectedMinWidth: 1000,
-                expectedMaxWidth: 2000,
-            },
-            2: {
-                viewports: ["tablet", "desktop"],
-                conf: [
-                    { label: "tablet", min: 1000, max: 2000 },
-                    { label: "desktop", min: 2001, max: 3000 },
-                ],
-                expectedMinWidth: 1000,
-                expectedMaxWidth: 3000,
-            },
-            3: {
-                viewports: ["mobile", "tablet", "desktop"],
-                conf: [
-                    { label: "mobile", min: 1000, max: 2000 },
-                    { label: "tablet", min: 100, max: 5000 },
-                    { label: "desktop", min: 2001, max: 3000 },
-                ],
-                expectedMinWidth: 100,
-                expectedMaxWidth: 5000,
-            },
-            4: {
-                viewports: ["mobile", "desktop"],
-                conf: [
-                    { label: "mobile", min: 1000, max: 2000 },
-                    { label: "tablet", min: 100, max: 5000 },
-                    { label: "desktop", min: 2001, max: 3000 },
-                ],
-                expectedMinWidth: 1000,
-                expectedMaxWidth: 3000,
-            },
-        };
-
         Object.values(testData).forEach((data) => {
             it(`Should result in the maximum and minimumdomwidth properties being equal to ${data.expectedMaxWidth} and ${data.expectedMinWidth}`, () => {
                 const pageResponder = new Responder(
@@ -171,25 +170,7 @@ describe("Responder", () => {
         });
     });
 
-    describe("Create a Macth Media Object", () => {
-        it("Should return MediaQueryList object with a media query representing the dom with specified on the breakpoint conf object", () => {
-            const desiredViewport = "mobile";
-            const pageResponder = new Responder(
-                [desiredViewport],
-                CONF,
-                ()=>{},
-                ()=>{}
-            );
-            pageResponder.setup()
-            let desiredBreakpoint = {label: '', min: 0, max: Number.MAX_SAFE_INTEGER};
-            CONF.forEach(breakpoint => {
-                if (breakpoint.label === desiredViewport) {
-                    desiredBreakpoint = breakpoint;
-                }
-            });
-            const mediaQueryList = pageResponder.createMatchMediaObject()
-            should(mediaQueryList.media).be.equal(`(min-width: ${desiredBreakpoint.min}px) and (max-width: ${desiredBreakpoint.max}px)`)
-        });
+    describe("Create a Match Media Object", () => {
         it("Should return an object of type MediaQueryList", () => {
             const pageResponder = new Responder(
                 ["mobile"],
@@ -200,5 +181,19 @@ describe("Responder", () => {
             const mediaQueryList = pageResponder.createMatchMediaObject()
             should(typeof(mediaQueryList)).be.equal(typeof(window.matchMedia('test')))
         });
+        
+        Object.values(testData).forEach((data) => {
+            it("Should return MediaQueryList object with a media query representing the dom with specified on the breakpoint conf object", () => {
+                const pageResponder = new Responder(
+                    data.viewports,
+                    data.conf,
+                    ()=>{},
+                    ()=>{}
+                );
+                pageResponder.setup()
+                const mediaQueryList = pageResponder.createMatchMediaObject()
+                should(mediaQueryList.media).be.equal(`(min-width: ${data.expectedMinWidth}px) and (max-width: ${data.expectedMaxWidth}px)`)
+            });
+        })
     });
 });
