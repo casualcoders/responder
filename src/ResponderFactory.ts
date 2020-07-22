@@ -13,7 +13,7 @@ class ResponderFactory {
         let ResponderInstances: Array < Responder > = []
 
         responderConfigs.forEach(responderConfig => {
-            ResponderInstances.push(new Responder(responderConfig.viewports, this.breakpoints, responderConfig.enterFunction, responderConfig.exitFunction)) 
+            ResponderInstances.push(new Responder(responderConfig.viewports, this.breakpoints, responderConfig.enterFn, responderConfig.exitFn)) 
         });
         
         return ResponderInstances
