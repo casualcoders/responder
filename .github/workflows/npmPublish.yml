@@ -1,4 +1,7 @@
-on: release
+on:
+   release:
+    types:
+      - published
 
 jobs:
   publish:
@@ -8,6 +11,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.15
+      - run: npm install
       - run: npm test
       - run: npm build
       - uses: JS-DevTools/npm-publish@v1
