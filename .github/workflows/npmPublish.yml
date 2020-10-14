@@ -1,0 +1,15 @@
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.15
+      - run: npm test
+      - run: npm build
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: 8b1ad515-8973-4e54-be88-9a0c6868ee61
