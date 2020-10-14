@@ -3,10 +3,13 @@
   "name": "@casualcoders/responder",
   "version": "0.0.1",
   "description": "A modern page responsiveness package in ES6 js with typescript 🚀",
-  "main": "./src/ResponderFactory.ts",
+  "main": "./lib/ResponderFactory.ts",
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "@types/jest": "^26.0.5",
     "typescript": "^3.6.3"
@@ -27,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Camiloruiiz/responder.git"
+    "url": "git+https://github.com/casualcoders/responder.git"
   },
   "keywords": [
     "Responsive",
@@ -40,7 +43,7 @@
   "author": "Benjamin Watson, Camilo Ruiz",
   "license": "SEE LICENCE IN license.txt",
   "bugs": {
-    "url": "https://github.com/Camiloruiiz/responder/issues"
+    "url": "https://github.com/casualcoders/responder/issues"
   },
-  "homepage": "https://github.com/Camiloruiiz/responder#readme"
+  "homepage": "https://github.com/casualcoders/responder#readme"
 }
