@@ -12,8 +12,8 @@ jobs:
         with:
           node-version: 12.15
       - run: npm install
-      - run: npm test
-      - run: npm build
+      - run: npm run test
+      - run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: 8b1ad515-8973-4e54-be88-9a0c6868ee61
