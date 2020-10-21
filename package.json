@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@casualcoders/responder",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "A modern page responsiveness package in ES6 js with typescript 🚀",
   "main": "./lib/index.js",
   "directories": {
