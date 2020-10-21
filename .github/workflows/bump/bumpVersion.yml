@@ -27,6 +27,6 @@ jobs:
         with:
           major-wording:  ''
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_AUTOMATION_TOKEN }}
       - name: "cat package.json"
         run: cat ./package.json
