@@ -16,4 +16,4 @@ jobs:
       - run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: 8b1ad515-8973-4e54-be88-9a0c6868ee61
+          token: ${{secrets.NPM_AUTOMATION_KEY}}
