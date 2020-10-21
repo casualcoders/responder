@@ -1,3 +1,6 @@
+
+name: "Bump Version"
+
 on:
   push:
     branches:
@@ -22,7 +25,9 @@ jobs:
       - name: "Automated Version Bump"
         uses: "phips28/gh-action-bump-version@master"
         with:
-          major-wording:  ''
+          major-wording:  'MAJOR'
+          minor-wording:  'add,Add,adds,Adds,new,New,feature,Feature'
+          patch-wording:  'patch,fixes'
         env:
           GITHUB_TOKEN: ${{ secrets.PACKAGE_AUTOMATION_TOKEN }}
       - name: "cat package.json"
