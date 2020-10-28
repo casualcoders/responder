@@ -42,7 +42,7 @@
     "matchmedia"
   ],
   "author": "Benjamin Watson, Camilo Ruiz",
-  "license": "SEE LICENCE IN license.txt",
+  "license": "MIT LICENSE IN license.txt",
   "bugs": {
     "url": "https://github.com/casualcoders/responder/issues"
   },
