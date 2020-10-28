@@ -10,9 +10,11 @@ Run as many responsive js functions as you want without the hassle of dealing wi
 npm install @casualcoders/responder
 ```
 
+### Creation
+
 You can use this two ways, by creating responders through our factory, or by creating them yourself.
 
-### Factory Creation
+#### Factory Creation
 
 ```javascript
 import ResponderFactory from "@casualcoders/responder";
@@ -65,7 +67,7 @@ Example responder Configs:
 ]
 ```
 
-### Direct Creation
+#### Direct Creation
 
 ```javascript
 import { Responder } from "@casualcoders/responder";
@@ -94,7 +96,7 @@ Example viewportConfig array:
 ]
 ```
 
-## Running tests
+### Running tests
 
 ```bash
 npm run test
@@ -106,4 +108,6 @@ or a wash task is also available:
 npm run watch
 ```
 
-***Learn more about our coding standards in our [WIKI](https://github.com/casualcoders/responder/wiki/Coding-Standards)***
+## How to contribute
+
+If you wish to contribute there are several ways to do so. You can raise a feature request or a bug report as an issue on Github, or if you would like to contribute to the repository you can find our guidelines in the [wiki](https://github.com/casualcoders/responder/wiki/how-to-contribute).
