@@ -29,6 +29,6 @@ jobs:
           minor-wording:  'add,Add,adds,Adds,new,New,feature,Feature'
           patch-wording:  'patch,fixes'
         env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_AUTOMATION_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "cat package.json"
         run: cat ./package.json
