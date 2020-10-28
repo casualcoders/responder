@@ -72,7 +72,7 @@ Example responder Configs:
 ```javascript
 import { Responder } from "@casualcoders/responder";
 
-Responder = new Responder(viewportsToRespondTo, viewportConfig, callbackToRunOnEntry, callbackToRunOnExit)
+Responder = new Responder(viewportConfig, viewportsToRespondTo, callbackToRunOnEntry, callbackToRunOnExit)
 ```
 
 Example viewportsToRespondTo array:
