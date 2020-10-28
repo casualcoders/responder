@@ -7,7 +7,7 @@ class Responder {
     exitFunction: any;
     matchObject: any;
 
-    constructor(viewports: Array < String > , config: Array < breakpoint > , enterFunction: any, exitFunction: any) {
+    constructor( config: Array < breakpoint >, viewports: Array < String > , enterFunction: any, exitFunction: any) {
         this.config = config;
         this.viewports = viewports;
         this.enterFunction = enterFunction ?? function() {};

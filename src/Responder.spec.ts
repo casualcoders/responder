@@ -28,15 +28,15 @@ beforeEach(() => {
 });
 describe("Responder", () => {
     it("Should contain the config passed to it as a property", () => {
-        const pageResponder = new Responder([], CONF, ()=>{}, ()=>{});
+        const pageResponder = new Responder(CONF, [], ()=>{}, ()=>{});
         should(pageResponder.config).not.be.undefined();
         should(pageResponder.config).be.equal(CONF);
     });
 
     it("Should have validate method that return true", () => {
         const pageResponder = new Responder(
-            ["mobile"],
             CONF,
+            ["mobile"],
             ()=>{},
             ()=>{}
         );
@@ -46,8 +46,8 @@ describe("Responder", () => {
     it("Should store a function passed as a parameter as the enter function", () => {
         const testFunction = () => {};
         const pageResponder = new Responder(
-            ["notBreakpoint"],
             CONF,
+            ["notBreakpoint"],
             testFunction,
             ()=>{}
         );
@@ -57,8 +57,8 @@ describe("Responder", () => {
     it("Should store a function passed as a parameter as the exit function", () => {
         const testFunction = () => {};
         const pageResponder = new Responder(
-            ["notBreakpoint"],
             CONF,
+            ["notBreakpoint"],
             () => {},
             testFunction
         );
@@ -67,37 +67,37 @@ describe("Responder", () => {
 
     const testData = {
         1: {
-            viewports: ["tablet"],
             conf: [{ label: "tablet", min: 1000, max: 2000 }],
+            viewports: ["tablet"],
             expectedMinWidth: 1000,
             expectedMaxWidth: 2000,
         },
         2: {
-            viewports: ["tablet", "desktop"],
             conf: [
                 { label: "tablet", min: 1000, max: 2000 },
                 { label: "desktop", min: 2001, max: 3000 },
             ],
+            viewports: ["tablet", "desktop"],
             expectedMinWidth: 1000,
             expectedMaxWidth: 3000,
         },
         3: {
-            viewports: ["mobile", "tablet", "desktop"],
             conf: [
                 { label: "mobile", min: 1000, max: 2000 },
                 { label: "tablet", min: 100, max: 5000 },
                 { label: "desktop", min: 2001, max: 3000 },
             ],
+            viewports: ["mobile", "tablet", "desktop"],
             expectedMinWidth: 100,
             expectedMaxWidth: 5000,
         },
         4: {
-            viewports: ["mobile", "desktop"],
             conf: [
                 { label: "mobile", min: 1000, max: 2000 },
                 { label: "tablet", min: 100, max: 5000 },
                 { label: "desktop", min: 2001, max: 3000 },
             ],
+            viewports: ["mobile", "desktop"],
             expectedMinWidth: 1000,
             expectedMaxWidth: 3000,
         },
@@ -106,8 +106,8 @@ describe("Responder", () => {
         Object.values(testData).forEach((data) => {
             it(`Should result in the maximum and minimumdomwidth properties being equal to ${data.expectedMaxWidth} and ${data.expectedMinWidth}`, () => {
                 const pageResponder = new Responder(
-                    data.viewports,
                     data.conf,
+                    data.viewports,
                     null,
                     null
                 );
@@ -127,8 +127,8 @@ describe("Responder", () => {
             const exitFn = jest.fn();
             const enterFn = jest.fn();
             const pageResponder = new Responder(
-                ["mobile", "tablet", "desktop"],
                 conf,
+                ["mobile", "tablet", "desktop"],
                 enterFn,
                 exitFn
             );
@@ -147,8 +147,8 @@ describe("Responder", () => {
             const exitFn = jest.fn();
             const enterFn = jest.fn();
             const pageResponder = new Responder(
-                ["mobile", "tablet", "desktop"],
                 conf,
+                ["mobile", "tablet", "desktop"],
                 enterFn,
                 exitFn
             );
@@ -161,8 +161,8 @@ describe("Responder", () => {
     describe("Responder validate method", () => {
         it("Should return false if the array passed does not match any of the provided breakpoints in the config", () => {
             const pageResponder = new Responder(
-                ["notBreakpoint"],
                 CONF,
+                ["notBreakpoint"],
                 ()=>{},
                 ()=>{}
             );
@@ -173,8 +173,8 @@ describe("Responder", () => {
     describe("Create a Match Media Object", () => {
         it("Should return an object of type MediaQueryList", () => {
             const pageResponder = new Responder(
-                ["mobile"],
                 CONF,
+                ["mobile"],
                 ()=>{},
                 ()=>{}
             );
@@ -185,8 +185,8 @@ describe("Responder", () => {
         Object.values(testData).forEach((data) => {
             it("Should return MediaQueryList object with a media query representing the dom with specified on the breakpoint conf object", () => {
                 const pageResponder = new Responder(
-                    data.viewports,
                     data.conf,
+                    data.viewports,
                     ()=>{},
                     ()=>{}
                 );
