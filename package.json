@@ -11,7 +11,6 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "@types/jest": "^26.0.5",
     "typescript": "^3.6.3"
   },
   "devDependencies": {
@@ -20,6 +19,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^26.0.5",
     "@types/mocha": "^7.0.2",
     "jest": "^25.4.0",
     "should": "^13.2.3"
