@@ -18,7 +18,11 @@ You can use this two ways, by creating responders through our factory, or by cre
 import ResponderFactory from "@casualcoders/responder";
 
 ResponderFactory = new ResponderFactory(breakpointConfig)
+```
+
 Example breakpointConfig:
+
+```javascript
 [
     { label: 'small', min: 0, max: 575 },
     { label: 'mobile', min: 576, max: 767 },
@@ -64,7 +68,7 @@ Example responder Configs:
 ### Direct Creation
 
 ```javascript
-import Responder from "@casualcoders/responder";
+import { Responder } from "@casualcoders/responder";
 
 Responder = new Responder(viewportsToRespondTo, viewportConfig, callbackToRunOnEntry, callbackToRunOnExit)
 ```
@@ -102,4 +106,4 @@ or a wash task is also available:
 npm run watch
 ```
 
-***Learn more about in our [WIKI](https://github.com/casualcoders/responder/wiki)***
+***Learn more about our coding standards in our [WIKI](https://github.com/casualcoders/responder/wiki/Coding-Standards)***
