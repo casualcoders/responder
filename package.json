@@ -1,8 +1,8 @@
 {
   "private": false,
   "name": "@casualcoders/responder",
-  "version": "0.2.1",
-  "description": "A dependencyless page responsiveness package in js built using typescript 🚀",
+  "version": "0.3.0",
+  "description": "A dependencyless page responsiveness package in js built using typescript",
   "main": "./lib/index.js",
   "directories": {
     "lib": "lib"
