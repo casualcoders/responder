@@ -1,8 +1,17 @@
 # Responder.js 🚀
+<p>
+  <a href="https://npmcharts.com/compare/@casualcoders/responder?minimal=true"><img src="https://img.shields.io/npm/dm/@casualcoders/responder?style=plastic" alt="Downloads"></a>
+  <a href="https://www.npmjs.com/package/@casualcoders/responder"><img src="https://img.shields.io/npm/v/@casualcoders/responder?style=plastic" alt="Version"></a>
+  <a href="https://github.com/casualcoders/responder/blob/master/license.txt"><img src="https://img.shields.io/github/license/casualcoders/responder?style=plastic" alt="License"></a>
+  <a href="https://bundlephobia.com/result?p=@casualcoders/responde">
+    <img src="https://img.shields.io/bundlephobia/minzip/@casualcoders/responder?style=plastic" alt="Size">
+    <img src="https://img.shields.io/bundlephobia/min/@casualcoders/responder?style=plastic" alt="Size">
+  </a>
+</p>
 
-Run as many responsive js functions as you want without the hassle of dealing with matchMedia(). We do all the work under the hood by aggregating breakpoints and using the matchMedia() API from the browser. Plus its all tested and polyfilled for compatibility, just see for yourself :)
+This package allows you to run as many js functions as you like at breakpoints you specify without the hassle of matchMedia re-running functions for each breakpoint you want the function to be active on. We ensure a function is only run when entering viewport (or page load) or exiting a viewport. This has all been built using typescript, tested and then compiled for compatibility.
 
-**_WARNING_**: This requires the browser to function, do not use if your code is running server side.
+**_WARNING_**: This requires the browser to function, do not use if your code is running server side as we will not have access to the matchMedia API.
 
 ## Setup
 
