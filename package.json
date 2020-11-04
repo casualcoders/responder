@@ -2,7 +2,7 @@
   "private": false,
   "name": "@casualcoders/responder",
   "version": "0.3.0",
-  "description": "A modern page responsiveness package in ES6 js with typescript 🚀",
+  "description": "A dependencyless page responsiveness package in js built using typescript 
   "main": "./lib/index.js",
   "directories": {
     "lib": "lib"
@@ -10,10 +10,8 @@
   "files": [
     "lib/**/*"
   ],
-  "dependencies": {
-    "typescript": "^3.6.3"
-  },
   "devDependencies": {
+    "typescript": "^3.6.3",
     "@babel/cli": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
@@ -39,7 +37,8 @@
     "JS",
     "typescript",
     "opensource",
-    "matchmedia"
+    "matchmedia",
+    "dependencyless"
   ],
   "author": "Benjamin Watson, Camilo Ruiz",
   "license": "MIT LICENSE IN license.txt",
