@@ -26,28 +26,29 @@ function matchMediaFactory(matches: Boolean) {
 beforeEach(() => {
     matchMediaFactory(false);
 });
+
 describe("Responder", () => {
     it("Should contain the config passed to it as a property", () => {
-        const pageResponder = new Responder(CONF, [], ()=>{}, ()=>{});
+        const pageResponder = new Responder(CONF, ['small'], ()=>{}, ()=>{});
         should(pageResponder.config).not.be.undefined();
         should(pageResponder.config).be.equal(CONF);
     });
 
-    it("Should have validate method that return true", () => {
+    it("Should have isValid method that return true", () => {
         const pageResponder = new Responder(
             CONF,
             ["mobile"],
             ()=>{},
             ()=>{}
         );
-        should(pageResponder.validate()).be.equal(true);
+        should(pageResponder.isValid()).be.equal(true);
     });
 
     it("Should store a function passed as a parameter as the enter function", () => {
         const testFunction = () => {};
         const pageResponder = new Responder(
             CONF,
-            ["notBreakpoint"],
+            ["small"],
             testFunction,
             ()=>{}
         );
@@ -58,11 +59,23 @@ describe("Responder", () => {
         const testFunction = () => {};
         const pageResponder = new Responder(
             CONF,
-            ["notBreakpoint"],
+            ["small"],
             () => {},
             testFunction
         );
         should(pageResponder.exitFunction).be.equal(testFunction);
+    });
+    
+    it("Should throw an error if the array passed does not match any of the provided breakpoints in the config", () => {
+        const setupResponder = () => {
+            new Responder(
+                CONF,
+                ["notBreakpoint"],
+                ()=>{},
+                ()=>{}
+            );
+        }
+        expect(setupResponder).toThrow()
     });
 
     const testData = {
@@ -155,18 +168,6 @@ describe("Responder", () => {
             pageResponder.setup();
             expect(pageResponder.matchObject.matches).toBe(false);
             expect(exitFn.mock.calls.length).toBe(1);
-        });
-    });
-
-    describe("Responder validate method", () => {
-        it("Should return false if the array passed does not match any of the provided breakpoints in the config", () => {
-            const pageResponder = new Responder(
-                CONF,
-                ["notBreakpoint"],
-                ()=>{},
-                ()=>{}
-            );
-            should(pageResponder.validate()).be.equal(false);
         });
     });
 

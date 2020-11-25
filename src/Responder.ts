@@ -14,6 +14,9 @@ class Responder {
         this.exitFunction = exitFunction ?? function() {};
         this.minimumDomWidth = 0;
         this.maximumDomWidth = Number.MAX_SAFE_INTEGER;
+        if (!this.isValid()) {
+            throw new Error("the viewports array contains strings not found in the breakpoint config");
+        }
     }
 
     setup(): void {
@@ -53,7 +56,7 @@ class Responder {
         this.minimumDomWidth = min
     }
 
-    validate(): boolean {
+    isValid(): boolean {
         let output = false;
         this.viewports.forEach(viewport => {
             this.config.forEach(breakpoint => {
