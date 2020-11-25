@@ -60,18 +60,19 @@ Example responder Configs:
 ```javascript
 [
     {
-        ['small', 'medium'],
-        exampleCallbackToRunOnEntry
+      viewports: ["small", "medium"],
+      enterFn: firtsExampleCallbackToRunOnEntry,
+      exitFn: firtsExampleCallbackToRunOnExit,
     },
     {
-        ['large'],
-        secondExampleCallbackToRunOnEntry,
-        exampleCallbackToRunOnExit
+      viewports: ["desktop"],
+      enterFn: secondExampleCallbackToRunOnEntry,
+      exitFn: secondexampleCallbackToRunOnExit,
     },
     {
-        ['xl'],
-        null,
-        secondExampleCallbackToRunOnExit
+      viewports: ["big"],
+      enterFn: thirdExampleCallbackToRunOnEntry,
+      exitFn: thirdExampleCallbackToRunOnExit,
     }
 ]
 ```
@@ -94,6 +95,10 @@ Example viewportsToRespondTo array:
 ```
 
 Example viewportConfig array:
+
+### Initialisation
+
+After being created, each Responder needs the .setup() function to be called in the browser when you wish for the responsive js to begin. This method aggregates the viewports and sets up the matchMedia listeners.
 
 ```javascript
 [
