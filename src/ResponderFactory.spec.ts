@@ -20,13 +20,13 @@ describe('ResponderFactory', () => {
     describe('On the createResponder method call', () => {
         it('It should return an instance of Responder Class', () => {
             let responderFactory = new ResponderFactory(CONF)
-            const responder = responderFactory.createResponder([], () => {}, () => {})
-            should(typeof(responder)).be.equal(typeof(new Responder([], [],  () => {}, () => {} )))
+            const responder = responderFactory.createResponder(['small'], () => {}, () => {})
+            should(typeof(responder)).be.equal(typeof(new Responder(CONF, ['small'],  () => {}, () => {} )))
         })
 
         it('A responder should be setup with the parameters passed to the method', () => {
             let responderFactory = new ResponderFactory(CONF)
-            let viewports = ['test']
+            let viewports = ['small']
             const exitFn = jest.fn()
             const enterFn = jest.fn()
             const responder = responderFactory.createResponder(viewports, enterFn, exitFn)
@@ -40,19 +40,19 @@ describe('ResponderFactory', () => {
     describe('On the createResponders method call', () => {
         it('It should return an array of instances of Responder Classes', () => {
             let responderFactory = new ResponderFactory(CONF)
-            const responderConfs = [{viewports: [], enterFn: () => {}, exitFn: () => {}},{viewports: [], enterFn: () => {}, exitFn: () => {}}]
+            const responderConfs = [{viewports: ['small'], enterFn: () => {}, exitFn: () => {}},{viewports: ['small'], enterFn: () => {}, exitFn: () => {}}]
             const responders = responderFactory.createResponders(responderConfs)
             should(typeof(responders)).be.equal(typeof([]))
             should(responders.length).be.equal(responderConfs.length)
             for (let index = 0; index < responders.length; index++) {
                 const responder = responders[index];
-                should(typeof(responder)).be.equal(typeof(new Responder([], [],  () => {}, () => {} )))
+                should(typeof(responder)).be.equal(typeof(new Responder(CONF, ['small'],  () => {}, () => {} )))
             }
         })
 
         it('The returned responders should be setup with the parameters passed using the responderConfig', () => {
             let responderFactory = new ResponderFactory(CONF)
-            let viewports = ['test']
+            let viewports = ['small']
             const exitFn = jest.fn()
             const enterFn = jest.fn()
             const responderConfs = [{viewports: viewports, enterFn: enterFn, exitFn: exitFn},{viewports: viewports, enterFn: enterFn, exitFn: exitFn}]
