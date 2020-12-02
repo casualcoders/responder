@@ -5,7 +5,6 @@ class Responder {
     viewports: Array < String >;
     enterFunction: any;
     exitFunction: any;
-    matchObject: any;
 
     constructor( config: Array < breakpoint >, viewports: Array < String > , enterFunction: any, exitFunction: any) {
         this.config = config;
@@ -22,8 +21,9 @@ class Responder {
     setup(): void {
         this.setMaximumDomWidth()
         this.setMinimumDomWidth()
-        this.matchObject = this.createMatchMediaObject();
-        this.defineFunctionToRun()
+        const mediaQueryList = this.createMatchMediaObject();
+        this.defineFunctionToRun(mediaQueryList.matches)
+        mediaQueryList.addEventListener('change', this.defineFunctionToRunEvent)
     }
 
     setMaximumDomWidth(): void {
@@ -69,8 +69,12 @@ class Responder {
         return output;
     }
 
-    defineFunctionToRun(): void {
-        if (this.matchObject.matches) {
+    defineFunctionToRunEvent(event: MediaQueryListEvent): void {
+        this.defineFunctionToRun(event.matches)
+    }
+
+    defineFunctionToRun(matches: boolean): void {
+        if (matches) {
             this.enterFunction()
         } else {
             this.exitFunction()
@@ -79,7 +83,6 @@ class Responder {
 
     createMatchMediaObject(): any {
         return window.matchMedia(`(min-width: ${this.minimumDomWidth}px) and (max-width: ${this.maximumDomWidth}px)`)
-        //TODO test this!
     }
 }
 
