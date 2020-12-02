@@ -2,11 +2,11 @@ import should from "should";
 import Responder from "./Responder";
 
 const CONF = [
-  { label: 'small', min: 0, max: 575 },
-  { label: 'mobile', min: 576, max: 767 },
-  { label: 'tablet', min: 768, max: 991 },
-  { label: 'desktop', min: 992, max: 1199 },
-  { label: 'big', min: 1200, max: 9999 }
+    { label: 'small', min: 0, max: 575 },
+    { label: 'mobile', min: 576, max: 767 },
+    { label: 'tablet', min: 768, max: 991 },
+    { label: 'desktop', min: 992, max: 1199 },
+    { label: 'big', min: 1200, max: 9999 }
 ]
 
 function matchMediaFactory(matches: Boolean) {
@@ -24,12 +24,13 @@ function matchMediaFactory(matches: Boolean) {
 }
 
 beforeEach(() => {
+    Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 1200})
     matchMediaFactory(false);
 });
 
 describe("Responder", () => {
     it("Should contain the config passed to it as a property", () => {
-        const pageResponder = new Responder(CONF, ['small'], ()=>{}, ()=>{});
+        const pageResponder = new Responder(CONF, ['small'], () => {}, () => {});
         should(pageResponder.config).not.be.undefined();
         should(pageResponder.config).be.equal(CONF);
     });
@@ -38,8 +39,8 @@ describe("Responder", () => {
         const pageResponder = new Responder(
             CONF,
             ["mobile"],
-            ()=>{},
-            ()=>{}
+            () => {},
+            () => {}
         );
         should(pageResponder.isValid()).be.equal(true);
     });
@@ -50,7 +51,7 @@ describe("Responder", () => {
             CONF,
             ["small"],
             testFunction,
-            ()=>{}
+            () => {}
         );
         should(pageResponder.enterFunction).be.equal(testFunction);
     });
@@ -65,14 +66,14 @@ describe("Responder", () => {
         );
         should(pageResponder.exitFunction).be.equal(testFunction);
     });
-    
+
     it("Should throw an error if the array passed does not match any of the provided breakpoints in the config", () => {
         const setupResponder = () => {
             new Responder(
                 CONF,
                 ["notBreakpoint"],
-                ()=>{},
-                ()=>{}
+                () => {},
+                () => {}
             );
         }
         expect(setupResponder).toThrow()
@@ -129,72 +130,31 @@ describe("Responder", () => {
                 should(pageResponder.maximumDomWidth).be.equal(data.expectedMaxWidth);
             });
         });
-
-        it("should run the enter function if match media returns matches as true", () => {
-            matchMediaFactory(true);
-            const conf = [
-                { label: "mobile", min: 1000, max: 2000 },
-                { label: "tablet", min: 100, max: 5000 },
-                { label: "desktop", min: 2001, max: 3000 },
-            ];
-            const exitFn = jest.fn();
-            const enterFn = jest.fn();
-            const pageResponder = new Responder(
-                conf,
-                ["mobile", "tablet", "desktop"],
-                enterFn,
-                exitFn
-            );
-            pageResponder.setup();
-            expect(pageResponder.matchObject.matches).toBe(true);
-            expect(enterFn.mock.calls.length).toBe(1);
-        });
-
-        it("should run the exit function if match media returns matches as false", () => {
-            matchMediaFactory(false);
-            const conf = [
-                { label: "mobile", min: 1000, max: 2000 },
-                { label: "tablet", min: 100, max: 5000 },
-                { label: "desktop", min: 2001, max: 3000 },
-            ];
-            const exitFn = jest.fn();
-            const enterFn = jest.fn();
-            const pageResponder = new Responder(
-                conf,
-                ["mobile", "tablet", "desktop"],
-                enterFn,
-                exitFn
-            );
-            pageResponder.setup();
-            expect(pageResponder.matchObject.matches).toBe(false);
-            expect(exitFn.mock.calls.length).toBe(1);
-        });
-    });
-
-    describe("Create a Match Media Object", () => {
-        it("Should return an object of type MediaQueryList", () => {
-            const pageResponder = new Responder(
-                CONF,
-                ["mobile"],
-                ()=>{},
-                ()=>{}
-            );
-            const mediaQueryList = pageResponder.createMatchMediaObject()
-            should(typeof(mediaQueryList)).be.equal(typeof(window.matchMedia('test')))
-        });
         
-        Object.values(testData).forEach((data) => {
-            it("Should return MediaQueryList object with a media query representing the dom with specified on the breakpoint conf object", () => {
+        describe("Sets up a media change event listener which", () => {
+            it("Should contain a callback passed as an argument", ()=> {
+                const addEventListener = jest.fn()
+                Object.defineProperty(window, "matchMedia", {
+                    writable: true,
+                    value: jest.fn().mockImplementation((query: String) => ({
+                        matches: false,
+                        media: query,
+                        onchange: null,
+                        addEventListener: addEventListener,
+                        removeEventListener: jest.fn(),
+                        dispatchEvent: jest.fn(),
+                    })),
+                });
+
                 const pageResponder = new Responder(
-                    data.conf,
-                    data.viewports,
-                    ()=>{},
-                    ()=>{}
+                    CONF,
+                    ["mobile"],
+                    () => {},
+                    () => {}
                 );
                 pageResponder.setup()
-                const mediaQueryList = pageResponder.createMatchMediaObject()
-                should(mediaQueryList.media).be.equal(`(min-width: ${data.expectedMinWidth}px) and (max-width: ${data.expectedMaxWidth}px)`)
+                expect(addEventListener).toHaveBeenCalledWith('change', pageResponder.defineFunctionToRunEvent);
             });
-        })
+        });
     });
 });
