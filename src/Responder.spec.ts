@@ -24,7 +24,6 @@ function matchMediaFactory(matches: Boolean) {
 }
 
 beforeEach(() => {
-    Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 1200})
     matchMediaFactory(false);
 });
 
