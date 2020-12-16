@@ -1,6 +1,6 @@
 import should from 'should';
 import ResponderFactory from './ResponderFactory';
-import Responder from './Responder';
+import Responder from '../Responder/Responder';
 
 const CONF = [
     { label: 'small', min: 0, max: 575 },
