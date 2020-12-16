@@ -69,8 +69,9 @@ class Responder {
         return output;
     }
 
-    defineFunctionToRunEvent(event: MediaQueryListEvent): void {
+    defineFunctionToRunEvent = (event: MediaQueryListEvent) => {
         this.defineFunctionToRun(event.matches)
+        //hopefully this should fix the scope issue where 'this' is the MediaQueryList. If this doesnt work then might need to pass this through 
     }
 
     defineFunctionToRun(matches: boolean): void {

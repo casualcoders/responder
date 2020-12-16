@@ -1,4 +1,4 @@
-import Responder from './Responder'
+import Responder from '../Responder/Responder'
 class ResponderFactory {
     breakpoints: Array < breakpoint >
 
