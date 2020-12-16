@@ -35,45 +35,80 @@ Example breakpointConfig:
 
 ```javascript
 [
-    { label: 'small', min: 0, max: 575 },
-    { label: 'mobile', min: 576, max: 767 },
-    { label: 'tablet', min: 768, max: 991 },
-    { label: 'desktop', min: 992, max: 1199 },
-    { label: 'big', min: 1200, max: 9999 }
+  { label: 'small', min: 0, max: 575 },
+  { label: 'mobile', min: 576, max: 767 },
+  { label: 'tablet', min: 768, max: 991 },
+  { label: 'desktop', min: 992, max: 1199 },
+  { label: 'big', min: 1200, max: 9999 }
 ]
 ```
 
 If you only require one Responder you can call:
 
 ```javascript
-ResponderFactory.createResponder(breakpointArray, callbackToRunOnEntry, callbackToRunOnExit)
+const responder =  ResponderFactory.createResponder(
+  breakpointArray,                    //Required
+  callbackToRunOnEntry,               //Optional
+  callbackToRunOnExit,                //Optional
+  shouldRunExitOnSetupIfMatchFails    //Optional default = true
+)
 ```
 
 If you require multiple Responders you can define them by calling:
 
 ```javascript
-ResponderFactory.createResponders(responderConfigs)
+const responders = ResponderFactory.createResponders(responderConfigs)
+```
+
+Example functions to run
+
+```javascript
+const firstExampleCallbackToRunOnEntry = () => {
+  console.log("firstExampleCallbackToRunOnEntry", "small", "medium");
+};
+
+const firstExampleCallbackToRunOnExit = () => {
+  console.log("firstExampleCallbackToRunOnExit", "small", "medium");
+};
+
+const secondExampleCallbackToRunOnEntry = () => {
+  console.log("secondExampleCallbackToRunOnEntry", "desktop");
+};
+
+const secondExampleCallbackToRunOnExit = () => {
+  console.log("secondExampleCallbackToRunOnExit", "big");
+};
+
+const thirdExampleCallbackToRunOnEntry = () => {
+  console.log("thirdExampleCallbackToRunOnEntry", "big");
+};
+
+const thirdExampleCallbackToRunOnExit = () => {
+  console.log("thirdExampleCallbackToRunOnExit", "desktop");
+};
+  
 ```
 
 Example responder Configs:
 
 ```javascript
 [
-    {
-      viewports: ["small", "medium"],
-      enterFn: firtsExampleCallbackToRunOnEntry,
-      exitFn: firtsExampleCallbackToRunOnExit,
-    },
-    {
-      viewports: ["desktop"],
-      enterFn: secondExampleCallbackToRunOnEntry,
-      exitFn: secondexampleCallbackToRunOnExit,
-    },
-    {
-      viewports: ["big"],
-      enterFn: thirdExampleCallbackToRunOnEntry,
-      exitFn: thirdExampleCallbackToRunOnExit,
-    }
+  {
+    viewports: ["small", "medium"],             //Required
+    enterFn: firstExampleCallbackToRunOnEntry,  //Optional
+    exitFn: firstExampleCallbackToRunOnExit,    //Optional
+    shouldRunExitOnSetupIfMatchFails: false     //Optional default = true
+  },
+  {
+    viewports: ["desktop"],
+    enterFn: secondExampleCallbackToRunOnEntry,
+    exitFn: secondexampleCallbackToRunOnExit,
+  },
+  {
+    viewports: ["big"],
+    enterFn: thirdExampleCallbackToRunOnEntry,
+    exitFn: thirdExampleCallbackToRunOnExit,
+  }
 ]
 ```
 
@@ -82,33 +117,55 @@ Example responder Configs:
 ```javascript
 import { Responder } from "@casualcoders/responder";
 
-Responder = new Responder(viewportConfig, viewportsToRespondTo, callbackToRunOnEntry, callbackToRunOnExit)
+responder = new Responder(
+  viewportConfig,                   //Required
+  viewportsToRespondTo,             //Required
+  callbackToRunOnEntry,             //Optional
+  callbackToRunOnExit,              //Optional
+  shouldRunExitOnSetupIfMatchFails  //Optional default = true
+)
+```
+
+Example viewportConfig array:
+
+```javascript
+[
+  { label: 'small', min: 0, max: 575 },
+  { label: 'mobile', min: 576, max: 767 },
+  { label: 'tablet', min: 768, max: 991 },
+  { label: 'desktop', min: 992, max: 1199 },
+  { label: 'big', min: 1200, max: 9999 }
+]
 ```
 
 Example viewportsToRespondTo array:
 
 ```javascript
 [
-    'small',
-    'medium'
+  'small',
+  'medium'
 ]
 ```
-
-Example viewportConfig array:
 
 ### Initialisation
 
-After being created, each Responder needs the .setup() function to be called in the browser when you wish for the responsive js to begin. This method aggregates the viewports and sets up the matchMedia listeners.
+After being created, you need to run .setup() for each of the responders **inside the browser** when you wish for the responsive js to begin. This method aggregates the viewports and sets up the matchMedia listeners. This can be done directly if you only created one:
 
 ```javascript
-[
-    { label: 'small', min: 0, max: 575 },
-    { label: 'mobile', min: 576, max: 767 },
-    { label: 'tablet', min: 768, max: 991 },
-    { label: 'desktop', min: 992, max: 1199 },
-    { label: 'big', min: 1200, max: 9999 }
-]
+responder.setup()
 ```
+
+Or by looping through them:
+
+```javascript
+for (let i = 0; i < responders.length; i++) {
+  responders[i].setup();
+}
+```
+
+## How to contribute
+
+If you wish to contribute there are several ways to do so. You can raise a feature request or a bug report as an issue on Github, or if you would like to contribute to the repository you can find our guidelines in the [wiki](https://github.com/casualcoders/responder/wiki/how-to-contribute).
 
 ### Running tests
 
@@ -116,12 +173,8 @@ After being created, each Responder needs the .setup() function to be called in 
 npm run test
 ```
 
-or a wash task is also available:
+or a watch task is also available:
 
 ```bash
 npm run watch
 ```
-
-## How to contribute
-
-If you wish to contribute there are several ways to do so. You can raise a feature request or a bug report as an issue on Github, or if you would like to contribute to the repository you can find our guidelines in the [wiki](https://github.com/casualcoders/responder/wiki/how-to-contribute).

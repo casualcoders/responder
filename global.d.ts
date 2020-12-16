@@ -1,2 +1,2 @@
 interface breakpoint { label: string, min: number, max: number }
-interface ResponderConfig { viewports: Array < string >, enterFn: Function, exitFn: Function}
+interface ResponderConfig { viewports: Array < string >, enterFn: null | Function, exitFn: null | Function, shouldRunExitOnSetupIfMatchFails: null | boolean}
