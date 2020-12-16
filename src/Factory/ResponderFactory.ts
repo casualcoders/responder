@@ -5,15 +5,15 @@ class ResponderFactory {
     constructor(breakpoints: Array < breakpoint >) {
         this.breakpoints = breakpoints;
     }
-    createResponder(viewports: Array < String > , enterFunction: any, exitFunction: any): Responder {
-        return new Responder(this.breakpoints, viewports, enterFunction, exitFunction)
+    createResponder(viewports: Array < String > , enterFunction:  null | Function, exitFunction:  null | Function, shouldRunExitOnSetupIfMatchFails:  null | boolean): Responder {
+        return new Responder(this.breakpoints, viewports, enterFunction, exitFunction, shouldRunExitOnSetupIfMatchFails)
     }
 
     createResponders(responderConfigs: Array < ResponderConfig >): Array < Responder > {
         let ResponderInstances: Array < Responder > = []
 
         responderConfigs.forEach(responderConfig => {
-            ResponderInstances.push(new Responder(this.breakpoints, responderConfig.viewports, responderConfig.enterFn, responderConfig.exitFn)) 
+            ResponderInstances.push(new Responder(this.breakpoints, responderConfig.viewports, responderConfig?.enterFn, responderConfig?.exitFn, responderConfig?.shouldRunExitOnSetupIfMatchFails)) 
         });
         
         return ResponderInstances
